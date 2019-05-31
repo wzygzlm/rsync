@@ -939,6 +939,9 @@ static struct file_struct *recv_file_entry(int f, struct file_list *flist, int x
 #endif
 	)
 		file->flags |= FLAG_HLINKED;
+		rprintf(FINFO, "Haha!!!!!!!!!!!!!.\t filedirname=%s mode=0%o len=%s flags=%x\n",
+			file->dirname, (int)file->mode, comma_num(F_LENGTH(file)),
+			file->flags);
 #endif
 	file->modtime = (time_t)modtime;
 #ifdef CAN_SET_NSEC
