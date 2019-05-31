@@ -1,4 +1,5 @@
-#rsync
+# rsync
+
 This rsync is trying to support directory hard link for migrating mac Time Machine Backup folder to another driver.
 
 For usage about rsync, refer to https://rsync.samba.org/
