@@ -939,8 +939,8 @@ static struct file_struct *recv_file_entry(int f, struct file_list *flist, int x
 #endif
 	)
 		file->flags |= FLAG_HLINKED;
-		rprintf(FINFO, "Haha!!!!!!!!!!!!!.\t filedirname=%s mode=0%o len=%s flags=%x\n",
-			file->dirname, (int)file->mode, comma_num(F_LENGTH(file)),
+		rprintf(FINFO, "Haha!!!!!!!!!!!!!.\t filename=%s mode=0%o len=%s flags=0x%x\n",
+			file->basename, (int)file->mode, comma_num(F_LENGTH(file)),
 			file->flags);
 #endif
 	file->modtime = (time_t)modtime;
@@ -2477,6 +2477,7 @@ struct file_list *recv_file_list(int f, int dir_ndx)
 		}
 
 		flist_expand(flist, 1);
+        rprintf(FINFO, "Current file flag is: 0x%x\n", flags);
 		file = recv_file_entry(f, flist, flags);
 
 		if (inc_recurse) {

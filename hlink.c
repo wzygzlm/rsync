@@ -458,6 +458,9 @@ int hard_link_check(struct file_struct *file, int ndx, char *fname,
 int hard_link_one(struct file_struct *file, const char *fname,
 		  const char *oldname, int terse)
 {
+    rprintf(FINFO, 
+            "I am going to do the hard link. The source file is: %s and the dest file is: %s!!!!!!!!!!!!!!!!!\n",
+            oldname, fname);
 	if (do_link(oldname, fname) < 0) {
 		enum logcode code;
 		if (terse) {
