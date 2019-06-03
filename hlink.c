@@ -238,7 +238,7 @@ static int maybe_hard_link(struct file_struct *file, int ndx,
 				realname);
 		}
 		if (code != FNONE && INFO_GTE(NAME, 1))
-			rprintf(code, "%s => %s\n", fname, realname);
+			rprintf(code, "%s => %s\n!!!!!!!", fname, realname);
 		return 0;
 	}
 

@@ -750,11 +750,11 @@ static struct file_struct *recv_file_entry(int f, struct file_list *flist, int x
 				first_hlink_ndx, flist->ndx_start + flist->used);
 			exit_cleanup(RERR_PROTOCOL);
 		}
-		if (DEBUG_GTE(HLINK, 1)) {
+		// if (DEBUG_GTE(HLINK, 1)) {
 			rprintf(FINFO, "[%s] #%d hard-links #%d (%sabbrev)\n",
 				who_am_i(), flist->used+flist->ndx_start, first_hlink_ndx,
 				first_hlink_ndx >= flist->ndx_start ? "" : "un");
-		}
+		// }
 		if (first_hlink_ndx >= flist->ndx_start) {
 			struct file_struct *first = flist->files[first_hlink_ndx - flist->ndx_start];
 			file_length = F_LENGTH(first);
@@ -938,10 +938,12 @@ static struct file_struct *recv_file_entry(int f, struct file_list *flist, int x
 	 && !IS_SPECIAL(mode) && !IS_DEVICE(mode)
 #endif
 	)
-		file->flags |= FLAG_HLINKED;
-		rprintf(FINFO, "Haha!!!!!!!!!!!!!.\t filename=%s mode=0%o len=%s flags=0x%x\n",
-			file->basename, (int)file->mode, comma_num(F_LENGTH(file)),
-			file->flags);
+    {
+        file->flags |= FLAG_HLINKED;
+        rprintf(FINFO, "Haha!!!!!!!!!!!!!.\t filename=%s mode=0%o len=%s flags=0x%x\n",
+                file->basename, (int)file->mode, comma_num(F_LENGTH(file)),
+                file->flags);
+    }
 #endif
 	file->modtime = (time_t)modtime;
 #ifdef CAN_SET_NSEC
@@ -1327,7 +1329,7 @@ struct file_struct *make_file(const char *fname, struct file_list *flist,
 #ifdef SUPPORT_HARD_LINKS
 	if (preserve_hard_links && flist && flist->prev) {
 		if (protocol_version >= 28
-		 ? (!S_ISDIR(st.st_mode) && st.st_nlink > 1)
+		 ? (st.st_nlink > 1)
 		 : S_ISREG(st.st_mode)) {
 			tmp_dev = (int64)st.st_dev;
 			tmp_ino = (int64)st.st_ino;
